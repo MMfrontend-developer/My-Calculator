@@ -1,0 +1,39 @@
+body {
+    justify-content: center;
+    align-items: center;
+    place-self: center;
+    background-color: grey;
+    margin-top: 190px;
+}
+.clock {
+font-size: 1.2em;
+margin-bottom: 1px;
+text-align: center;
+background-color: aliceblue;
+}
+   
+
+
+.all {
+    text-align: center;
+    height: 300px;
+    display: grid;
+    grid-template-columns: repeat(3, 6fr);
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+input {
+    height: 40px;
+    border: none;
+    padding-left: 4px;
+}
+.yes {
+    border:10px solid blue;
+    border-radius: 10px;
+    width: 300px;
+}
+ input, button {
+    font-size: 1.2em;
+ }

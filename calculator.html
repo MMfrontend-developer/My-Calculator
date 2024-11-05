@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Calculator</title>
+    <link rel="stylesheet"  href="calulator.css">
+</head>
+<body>
+   <div class="yes">
+        <form>
+            <div id="clock" class="clock">00:00:00</div>
+            <input type="text" id="display" readonly>
+            <input type="text" id="answer" readonly>
+        </form>
+        <div class="all">
+            <button onclick="input(1)">1</button>
+            <button onclick="input(2)">2</button>
+            <button onclick="input(3)">3</button>
+            <button onclick="input(4)">4</button>
+   <button onclick="input(5)">5</button>
+   <button onclick="input(6)">6</button>
+   <button onclick="input(7)">7</button>
+   <button onclick="input(8)">8</button>
+   <button onclick="input(9)">9</button>
+   <button onclick="input(0)">0</button>
+   <button onclick="input('+')">+</button>
+   <button onclick="input('-')">-</button>
+   <button onclick="input('*')">*</button>
+   <button onclick="input('/')">/</button>
+   <button onclick="input('.')">.</button>
+   <button onclick="deleteLast()">Delete</button>
+   <button onclick="clearDisplay()">AC</button>
+   <button onclick="displayanswer()">=</button>
+</div>
+</div>
+</body>
+</html>
+<script>
+function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    document.getElementById('clock').textContent = '08:44:50';
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+
+    const display=document.getElementById("display");
+    const answer=document.getElementById("answer");
+    function input(myvalue) {
+        display.value +=myvalue;
+    }
+        function displayanswer(){
+            answer.value=eval(display.value);
+            answer.style.textAlign="right";
+        }
+        function deleteLast() {
+            // alert("Item deleted successfully!");
+            display.value = display.value.slice(0, -1);
+        }
+        function clearDisplay() {
+            display.value= '';
+            answer.value= '';
+        }
+</script>
