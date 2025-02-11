@@ -13,6 +13,10 @@
             <input type="text" id="display" readonly>
             <input type="text" id="answer" readonly>
         </form>
+        <div class="new">
+            <button onclick="solveQuadratic()">Solve Quadratic</button>
+        <input type="text" id="resultDisplay" disabled placeholder="Result" />
+    </div>
         <div class="all">
             <button onclick="input(1)">1</button>
             <button onclick="input(2)">2</button>
@@ -65,4 +69,40 @@ updateClock();
             display.value= '';
             answer.value= '';
         }
+
+    const resultDisplay = document.getElementById('resultDisplay');
+
+    // Function to solve the quadratic equation
+    function solveQuadratic() {
+        // Prompt the user for coefficients a, b, and c
+        const a = parseFloat(prompt("Enter coefficient a:"));
+        const b = parseFloat(prompt("Enter coefficient b:"));
+        const c = parseFloat(prompt("Enter coefficient c:"));
+
+        // Check if inputs are valid
+        if (isNaN(a) || isNaN(b) || isNaN(c)) {
+            resultDisplay.value = "Invalid input";
+            return;
+        }
+
+        // Calculate the discriminant
+        const discriminant = b * b - 4 * a * c;
+
+        // Check the nature of the roots
+        if (discriminant > 0) {
+            // Two real roots
+            const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+            const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+            resultDisplay.value = `Roots: ${root1.toFixed(2)}, ${root2.toFixed(2)}`;
+        } else if (discriminant === 0) {
+            // One real root
+            const root = -b / (2 * a);
+            resultDisplay.value = `Root: ${root.toFixed(2)}`;
+        } else {
+            // Complex roots
+            const realPart = (-b / (2 * a)).toFixed(2);
+            const imaginaryPart = (Math.sqrt(-discriminant) / (2 * a)).toFixed(2);
+            resultDisplay.value = `Roots: ${realPart} ± ${imaginaryPart}i`;
+        }
+    }
 </script>

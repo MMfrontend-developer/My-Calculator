@@ -37,3 +37,17 @@ input {
  input, button {
     font-size: 1.2em;
  }
+
+ .new {
+    background-color:  grey;
+ }
+
+ .new input {
+    width:97%;
+    /* height: 30px; */
+ }
+ .new button {
+    width:100%;
+    background-color: white;
+    border-color: grey;
+}
