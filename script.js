@@ -19,13 +19,46 @@ setInterval(updateClock, 1000);
 updateClock();
 
 // Calculator Functions
+
+
+// Helper functions for degree-based trig and logs
+function sinDeg(x) {
+  return Math.sin(x * Math.PI / 180);
+}
+function cosDeg(x) {
+  return Math.cos(x * Math.PI / 180);
+}
+function tanDeg(x) {
+  return Math.tan(x * Math.PI / 180);
+}
+function log10(x) {
+  return Math.log10(x);
+}
+function ln(x) {
+  return Math.log(x);
+}
+
 function input(val) {
-  display.value += val;
+  // Replace placeholders with actual function calls
+  if (val === 'sin(') {
+    display.value += 'sinDeg(';
+  } else if (val === 'cos(') {
+    display.value += 'cosDeg(';
+  } else if (val === 'tan(') {
+    display.value += 'tanDeg(';
+  } else if (val === 'log10(') {
+    display.value += 'log10(';
+  } else if (val === 'ln(') {
+    display.value += 'ln(';
+  } else {
+    display.value += val;
+  }
 }
 
 function displayanswer() {
   try {
-    const result = eval(display.value);
+    // Allow only safe functions
+    const result = Function('sinDeg','cosDeg','tanDeg','log10','ln', 'return ' + display.value)(sinDeg, cosDeg, tanDeg, log10, ln);
     answer.value = result;
   } catch {
     answer.value = "Error";
