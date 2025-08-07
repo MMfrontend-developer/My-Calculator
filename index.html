@@ -1,108 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Calculator</title>
-    <link rel="stylesheet"  href="calulator.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Calculator</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-   <div class="yes">
-        <form>
-            <div id="clock" class="clock">00:00:00</div>
-            <input type="text" id="display" readonly>
-            <input type="text" id="answer" readonly>
-        </form>
-        <div class="new">
-            <button onclick="solveQuadratic()">Solve Quadratic</button>
-        <input type="text" id="resultDisplay" disabled placeholder="Result" />
+<body class="dark-theme">
+  <div class="calculator">
+    <div class="top-bar">
+      <div id="clock" class="clock">00:00:00 AM</div>
+      <button id="themeToggle">🌙</button>
     </div>
-        <div class="all">
-            <button onclick="input(1)">1</button>
-            <button onclick="input(2)">2</button>
-            <button onclick="input(3)">3</button>
-            <button onclick="input(4)">4</button>
-   <button onclick="input(5)">5</button>
-   <button onclick="input(6)">6</button>
-   <button onclick="input(7)">7</button>
-   <button onclick="input(8)">8</button>
-   <button onclick="input(9)">9</button>
-   <button onclick="input(0)">0</button>
-   <button onclick="input('+')">+</button>
-   <button onclick="input('-')">-</button>
-   <button onclick="input('*')">*</button>
-   <button onclick="input('/')">/</button>
-   <button onclick="input('.')">.</button>
-   <button onclick="deleteLast()">Delete</button>
-   <button onclick="clearDisplay()">AC</button>
-   <button onclick="displayanswer()">=</button>
-</div>
-</div>
+
+    <input type="text" id="display" placeholder="Expression" readonly />
+    <input type="text" id="answer" placeholder="Answer" readonly />
+    <button id="copyBtn">Copy Result</button>
+
+    <div class="solve-quadratic">
+      <button onclick="openModal()">Solve Quadratic</button>
+      <input type="text" id="resultDisplay" disabled placeholder="Quadratic result" />
+    </div>
+
+    <div class="sci-grid">
+      <button onclick="input('Math.sin(')">sin</button>
+      <button onclick="input('Math.cos(')">cos</button>
+      <button onclick="input('Math.tan(')">tan</button>
+      <button onclick="input('Math.log(')">log</button>
+
+      <button onclick="input('Math.sqrt(')">√</button>
+      <button onclick="input('**')">^</button>
+      <button onclick="input('Math.PI')">π</button>
+      <button onclick="input('Math.E')">e</button>
+      <button onclick="input('Math.log(')">ln</button>
+      <button onclick="input(')')">)</button>
+    </div>
+
+    <div class="button-grid">
+      <button onclick="input(1)">1</button>
+      <button onclick="input(2)">2</button>
+      <button onclick="input(3)">3</button>
+      <button onclick="input('+')">+</button>
+
+      <button onclick="input(4)">4</button>
+      <button onclick="input(5)">5</button>
+      <button onclick="input(6)">6</button>
+      <button onclick="input('-')">-</button>
+
+      <button onclick="input(7)">7</button>
+      <button onclick="input(8)">8</button>
+      <button onclick="input(9)">9</button>
+      <button onclick="input('*')">*</button>
+
+      <button onclick="input(0)">0</button>
+      <button onclick="input('.')">.</button>
+      <button onclick="deleteLast()">Del</button>
+      <button onclick="input('/')">/</button>
+
+      <button onclick="clearDisplay()">AC</button>
+      <button onclick="displayanswer()">=</button>
+    </div>
+  </div>
+
+  <!-- Modal for Quadratic Solver -->
+  <div id="quadraticModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3>Solve Quadratic: ax² + bx + c = 0</h3>
+      <input type="number" id="a" placeholder="Enter a" />
+      <input type="number" id="b" placeholder="Enter b" />
+      <input type="number" id="c" placeholder="Enter c" />
+      <button onclick="solveQuadratic()">Solve</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
-<script>
-function updateClock() {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    document.getElementById('clock').textContent = '08:44:50';
-}
-setInterval(updateClock, 1000);
-updateClock();
-
-
-    const display=document.getElementById("display");
-    const answer=document.getElementById("answer");
-    function input(myvalue) {
-        display.value +=myvalue;
-    }
-        function displayanswer(){
-            answer.value=eval(display.value);
-            answer.style.textAlign="right";
-        }
-        function deleteLast() {
-            // alert("Item deleted successfully!");
-            display.value = display.value.slice(0, -1);
-        }
-        function clearDisplay() {
-            display.value= '';
-            answer.value= '';
-        }
-
-    const resultDisplay = document.getElementById('resultDisplay');
-
-    // Function to solve the quadratic equation
-    function solveQuadratic() {
-        // Prompt the user for coefficients a, b, and c
-        const a = parseFloat(prompt("Enter coefficient a:"));
-        const b = parseFloat(prompt("Enter coefficient b:"));
-        const c = parseFloat(prompt("Enter coefficient c:"));
-
-        // Check if inputs are valid
-        if (isNaN(a) || isNaN(b) || isNaN(c)) {
-            resultDisplay.value = "Invalid input";
-            return;
-        }
-
-        // Calculate the discriminant
-        const discriminant = b * b - 4 * a * c;
-
-        // Check the nature of the roots
-        if (discriminant > 0) {
-            // Two real roots
-            const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
-            const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
-            resultDisplay.value = `Roots: ${root1.toFixed(2)}, ${root2.toFixed(2)}`;
-        } else if (discriminant === 0) {
-            // One real root
-            const root = -b / (2 * a);
-            resultDisplay.value = `Root: ${root.toFixed(2)}`;
-        } else {
-            // Complex roots
-            const realPart = (-b / (2 * a)).toFixed(2);
-            const imaginaryPart = (Math.sqrt(-discriminant) / (2 * a)).toFixed(2);
-            resultDisplay.value = `Roots: ${realPart} ± ${imaginaryPart}i`;
-        }
-    }
-</script>
